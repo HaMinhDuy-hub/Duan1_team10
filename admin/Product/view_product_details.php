@@ -17,13 +17,6 @@ if (isset($_GET['id'])) {
     <p><strong>ID:</strong> <?= $product['id'] ?></p>
     <p><strong>Tên sản phẩm:</strong> <?= htmlspecialchars($product['name']) ?></p>
     
-    <!-- Hiển thị danh sách màu sắc -->
-    <p><strong>Màu sắc:</strong>
-        <?php foreach ($productVariants as $variant) : ?>
-            <span class="badge badge-primary"><?= htmlspecialchars($variant['color_name']) ?></span>
-        <?php endforeach; ?>
-    </p>
-    
     <!-- Hiển thị danh sách kích cỡ -->
     <p><strong>Kích cỡ:</strong>
         <?php foreach ($productVariants as $variant) : ?>
@@ -34,7 +27,7 @@ if (isset($_GET['id'])) {
     <!-- Hiển thị số lượng cho từng biến thể -->
     <p><strong>Số lượng:</strong>
         <?php foreach ($productVariants as $variant) : ?>
-            <br><strong>Màu <?= htmlspecialchars($variant['color_name']) ?>, Kích cỡ <?= htmlspecialchars($variant['size_name']) ?>:</strong> <?= $variant['quantity'] ?>
+            <br><strong>Kích cỡ <?= htmlspecialchars($variant['size_name']) ?>:</strong> <?= $variant['quantity'] ?>
             <!-- Thêm nút xóa biến thể -->
             <a href="index.php?act=delete_variant&id=<?= $variant['id'] ?>&product_id=<?= $product['id'] ?>" class="btn btn-danger d-inline-block mr-2" onclick="return confirm('Bạn có chắc chắn muốn xóa biến thể này?');">Xóa</a>
         <?php endforeach; ?>

@@ -10,6 +10,7 @@ include "../model/Color.php";
 include "../model/Size.php";
 include "../model/ProductVariant.php";
 include "../model/User.php";
+include "../model/Comment.php";
 
 // Kiểm tra quyền Admin
 // if ($_SESSION['role'] != 1) {
@@ -36,7 +37,6 @@ if (isset($_GET["act"]) && $_GET["act"] != "") {
         // Danh sách danh mục
         case "list_categories":
             $categories = Category::getAll();
-            $totalCategories = Category::countCategories();
             include "Category/list_categories.php";
             break;
 
@@ -356,7 +356,37 @@ case "delete_user":
         include "User/list_user.php";
         break;
 
+                    // Bình luận
+            case "list_comments":
+                $comments = Comment::getAll();
+                include "Comment/list_comments.php";
+                break;
+
+            case "archive_comment":
+                $comments = Comment::getArchived();
+                include "Comment/archive_comment.php";
+                break;
+
+            case "delete_comment":
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    Comment::softDelete($_GET['id']);
+                    $message = "Bình luận đã được chuyển vào kho lưu trữ.";
+                }
+                $comments = Comment::getAll();
+                include "Comment/list_comments.php";
+                break;
+
+            case "restore_comment":
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    Comment::restore($_GET['id']);
+                    $message = "Bình luận đã được khôi phục.";
+                }
+                $comments = Comment::getArchived();
+                include "Comment/archive_comment.php";
+                break;
+
         default:
+        $totalCategories = Category::countCategories();
             include "home.php";
             break;
     }

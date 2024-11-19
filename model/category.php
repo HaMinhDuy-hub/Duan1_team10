@@ -55,7 +55,13 @@
     {
         $sql = "SELECT COUNT(*) AS total FROM categories WHERE deleted_at IS NULL";
         $result = pdo_query_one($sql);
-        return $result['total'];
+    
+        // Kiểm tra kết quả
+        if ($result) {
+            return $result['total'];
+        } else {
+            return 0; // Trả về 0 nếu không có kết quả
+        }
     }
-    }
+ }
     ?>

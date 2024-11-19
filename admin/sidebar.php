@@ -72,7 +72,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="index.php?act=list_comments" class="nav-link">
         <i class="nav-icon fas fa-comments"></i>
         <p>Quản lý bình luận & đánh giá</p>
       </a>

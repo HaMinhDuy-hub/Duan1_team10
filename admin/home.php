@@ -5,7 +5,7 @@
         <!-- Danh mục -->
         <div class="small-box bg-info">
             <div class="inner">
-            <h3><?= $totalCategories?></h3>
+            <h3><?= isset($totalCategories) ? $totalCategories : '0'; ?></h3>
                 <p>Danh Mục</p>
             </div>
             <div class="icon">
@@ -18,7 +18,7 @@
         <!-- Sản phẩm -->
         <div class="small-box bg-success">
             <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3>53</h3>
                 <p>Sản Phẩm</p>
             </div>
             <div class="icon">
@@ -80,7 +80,7 @@
             <div class="icon">
                 <i class="ion ion-chatbox"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="index.php?act=list_comments" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>
