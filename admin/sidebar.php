@@ -35,20 +35,20 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Add icons to the links using the .nav-icon class with Font Awesome or any other icon font library -->
     <li class="nav-item">
-      <a href="dashboard.html" class="nav-link">
+      <a href="index.php" class="nav-link">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>DashBoard</p>
       </a>
     </li>
 
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="index.php?act=list_categories" class="nav-link">
         <i class="nav-icon fas fa-th"></i>
         <p>Quản lý danh mục</p>
       </a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="index.php?act=list_product" class="nav-link">
         <i class="nav-icon fas fa-box"></i>
         <p>Quản lý sản phẩm</p>
       </a>
@@ -60,7 +60,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link">
+      <a href="index.php?act=list_user" class="nav-link">
         <i class="nav-icon fas fa-users"></i>
         <p>Quản lý người dùng</p>
       </a>

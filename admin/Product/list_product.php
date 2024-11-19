@@ -1,36 +1,60 @@
 <?php
-include "../model/product.php";
+$file_path = __DIR__ . '/../../model/Product.php'; // Điều chỉnh đúng số cấp thư mục
 
-$products = load_all_products();
+if (!file_exists($file_path)) {
+    die("Lỗi: Không tìm thấy tệp tại đường dẫn $file_path"); // Hiển thị đường dẫn chính xác để kiểm tra
+}
+if (isset($_SESSION['message'])) {
+    echo "<p class='alert alert-success'>{$_SESSION['message']}</p>";
+    // Xóa thông báo sau khi đã hiển thị
+    unset($_SESSION['message']);
+}
+require_once $file_path;
+
+$products = Product::getAll(); // Lấy tất cả sản phẩm
 ?>
 
 <div class="content-wrapper">
     <h2>Danh sách sản phẩm</h2>
-    <a href="index.php?act=add_product">Thêm sản phẩm mới</a>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá</th>
-            <th>Hình ảnh</th>
-            <th>Danh mục</th>
-            <th>Mô tả</th>
-            <th>Hành động</th>
-        </tr>
-
-        <?php foreach ($products as $product) : ?>
+    <a href="index.php?act=add_product" class="btn btn-primary mb-3">Thêm sản phẩm</a>
+    <a href="index.php?act=archive_products" class="btn btn-warning mb-3">Kho lưu trữ</a>
+    <table class="table table-bordered">
+        <thead>
             <tr>
-                <td><?= $product['id'] ?></td>
-                <td><?= $product['name'] ?></td>
-                <td><?= number_format($product['price']) ?> VNĐ</td>
-                <td><img src="../uploads/<?= $product['product_image'] ?>" width="50" height="50"></td>
-                <td><?= load_category_name($product['category_id']) ?></td>
-                <td><?= $product['description'] ?></td>
-                <td>
-                    <a href="index.php?act=update_product&id=<?= $product['id'] ?>">Sửa</a> | 
-                    <a href="index.php?act=delete_product&id=<?= $product['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
-                </td>
+                <th>ID</th>
+                <th>Tên sản phẩm</th>
+                <th>Danh mục</th>
+                <th>Giá</th>
+                <th>Ngày tạo</th>
+                <th>Ảnh sản phẩm</th>
+                <th>Hành động</th>
             </tr>
-        <?php endforeach; ?>
+        </thead>
+        <tbody>
+            <?php foreach ($products as $product) : ?>
+                <tr>
+                    <td><?= $product['id'] ?></td>
+                    <td><?= htmlspecialchars($product['name']) ?></td>
+                    <td><?= htmlspecialchars($product['category_name']) ?></td> <!-- Hiển thị tên danh mục -->
+                    <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td> <!-- Hiển thị giá sản phẩm -->
+                    <td><?= $product['created_at'] ?></td>
+                    <td>
+                        <?php if ($product['product_image']) : ?>
+                            <img src="uploads/products/<?= $product['product_image'] ?>" alt="Ảnh sản phẩm" width="50">
+                        <?php else: ?>
+                            <p>Không có ảnh</p>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a href="index.php?act=view_product_details&id=<?= $product['id'] ?>" class="btn btn-info">Chi tiết</a>
+                        <a href="index.php?act=edit_product&id=<?= $product['id'] ?>" class="btn btn-warning">Sửa</a>
+                        <a href="index.php?act=delete_product&id=<?= $product['id'] ?>" 
+                           class="btn btn-danger" 
+                           onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">Xóa</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
     </table>
+    <?php if (isset($message)) echo "<p class='alert alert-success'>$message</p>"; ?>
 </div>
